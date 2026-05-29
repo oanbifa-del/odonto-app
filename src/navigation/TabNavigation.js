@@ -1,4 +1,6 @@
 // Navegação de abas (menu inferior) do app.
+// + Cabeçalho com menu hamburguer funcional
+
 import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,153 +9,279 @@ import HomeScreen from '../screens/HomeScreen';
 import PatientsScreen from '../screens/PatientsScreen';
 import AgendaScreen from '../screens/AgendaScreen';
 import FinanceScreen from '../screens/FinanceScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import colors from '../styles/colors';
 
 import {
     View,
     Text,
     Image,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity,
+    Modal,
+    Pressable
 } from 'react-native';
-
 
 import iconeOdonto from '../../assets/images/iconeOdonto.png';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
+    
+    const navigationRef = useNavigation();
+
+    const [menuVisible, setMenuVisible] = React.useState(false);
 
     return (
 
-        <Tab.Navigator
-            screenOptions={{
-                headerShown: true,
-                headerTintColor: colors.textDark,
-                tabBarActiveTintColor: colors.azul,
-                tabBarInactiveTintColor: colors.textMuted,
-                tabBarShowLabel: true,
-                tabBarLabelStyle: styles.tabLabel,
-                tabBarStyle: styles.tabBar,
-                tabBarHideOnKeyboard: true
-            }}
-        >
-            <Tab.Screen
-                name="Início"
-                component={HomeScreen}
+        <>
+            {/* ===== MENU HAMBURGUER ===== */}
 
-                options={{
-                    ...headerOptions,
+            <Modal
+                transparent={true}
+                visible={menuVisible}
+                animationType="fade"
+            >
 
-                    tabBarIcon: ({ color, size }) => (
+                <Pressable
+                    style={styles.overlay}
+                    onPress={() => setMenuVisible(false)}
+                >
 
-                        <Ionicons
-                            name="home"
-                            color={color}
-                            size={size}
+                    <View style={styles.menuContainer}>
+
+                        <TouchableOpacity
+                            style={styles.menuItem}
+
+                            onPress={() => {
+
+                                setMenuVisible(false);
+
+                                navigationRef.navigate('Perfil');
+                            }}
+                        >
+
+                            <Text style={styles.menuText}>
+                                Perfil
+                            </Text>
+
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.menuItem}
+                        >
+
+                            <Text style={styles.menuText}>
+                                Configurações
+                            </Text>
+
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.menuItem}
+                        >
+
+                            <Text style={styles.menuText}>
+                                Sair
+                            </Text>
+
+                        </TouchableOpacity>
+
+                    </View>
+
+                </Pressable>
+
+            </Modal>
+
+            <Tab.Navigator
+
+                screenOptions={({ navigation }) => ({
+
+                    // ===== HEADER =====
+
+                    headerShown: true,
+
+                    headerStyle: {
+                        backgroundColor: '#2563FF'
+                    },
+
+                    headerShadowVisible: false,
+
+                    headerTitleAlign: 'center',
+
+                    headerTitle: () => (
+
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center'
+                            }}
+                        >
+
+                            <Ionicons
+                                name="person"
+                                size={24}
+                                color="white"
+                                style={{ marginRight: 8 }}
+                            />
+
+                            <Text
+                                style={{
+                                    color: 'white',
+                                    fontSize: 20,
+                                    fontWeight: 'bold'
+                                }}
+                            >
+                                Dr Leopoldo
+                            </Text>
+
+                        </View>
+                    ),
+
+                    headerLeft: () => (
+
+                        <Image
+                            source={iconeOdonto}
+                            style={{
+                                width: 32,
+                                height: 45,
+                                marginLeft: 18,
+                                resizeMode: 'contain'
+                            }}
                         />
-                    )
-                }}
-            />
+                    ),
 
-            <Tab.Screen
-                name="Pacientes"
-                component={PatientsScreen}
-                options={{
-                    ...headerOptions,
+                    // ===== BOTÃO MENU =====
 
-                    tabBarIcon: ({ color, size }) => (
+                    headerRight: () => (
 
-                        <Ionicons
-                            name="people"
-                            color={color}
-                            size={size}
-                        />
-                    )
-                }}
+                        <TouchableOpacity
+                            onPress={() => setMenuVisible(true)}
+                            style={{ marginRight: 15 }}
+                        >
 
-            />
+                            <Ionicons
+                                name="menu"
+                                size={28}
+                                color="white"
+                            />
 
-            <Tab.Screen
-                name="Agenda"
-                component={AgendaScreen}
-                options={{
-                    ...headerOptions,
+                        </TouchableOpacity>
+                    ),
 
-                    tabBarIcon: ({ color, size }) => (
+                    // ===== TAB BAR =====
 
-                        <Ionicons
-                            name="calendar"
-                            color={color}
-                            size={size}
-                        />
-                    )
-                }}
-            />
+                    tabBarActiveTintColor: colors.azul,
 
-            <Tab.Screen
-                name="Financeiro"
-                component={FinanceScreen}
-                options={{
-                    ...headerOptions,
+                    tabBarInactiveTintColor: colors.textMuted,
 
-                    tabBarIcon: ({ color, size }) => (
+                    tabBarShowLabel: true,
 
-                        <Ionicons
-                            name="trending-up"
-                            color={color}
-                            size={size}
-                        />
-                    )
-                }}
-            />
+                    tabBarLabelStyle: styles.tabLabel,
 
-            <Tab.Screen
-                name="Perfil"
-                component={ProfileScreen}
-                options={{
-                    ...headerOptions,
-                    tabBarIcon: ({ color, size }) => (
-                        <Ionicons
-                            name="person-circle"
-                            color={color}
-                            size={size}
-                        />
-                    )
-                }}
-            />
+                    tabBarStyle: styles.tabBar,
 
-        </Tab.Navigator>
+                    tabBarHideOnKeyboard: true
+                })}
+            >
 
+                <Tab.Screen
+                    name="Início"
+                    component={HomeScreen}
+
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <Ionicons
+                                name="home"
+                                color={color}
+                                size={size}
+                            />
+                        )
+                    }}
+                />
+
+                <Tab.Screen
+                    name="Pacientes"
+                    component={PatientsScreen}
+
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <Ionicons
+                                name="people"
+                                color={color}
+                                size={size}
+                            />
+                        )
+                    }}
+                />
+
+                <Tab.Screen
+                    name="Agenda"
+                    component={AgendaScreen}
+
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <Ionicons
+                                name="calendar"
+                                color={color}
+                                size={size}
+                            />
+                        )
+                    }}
+                />
+
+                <Tab.Screen
+                    name="Financeiro"
+                    component={FinanceScreen}
+
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <Ionicons
+                                name="trending-up"
+                                color={color}
+                                size={size}
+                            />
+                        )
+                    }}
+                />
+
+            </Tab.Navigator>
+        </>
     );
-
 }
 
+// ===== ESTILOS =====
+
 const styles = StyleSheet.create({
-    logo: {
-        width: 32,
-        height: 45,
-        marginLeft: 16,
-        resizeMode: 'contain'
+
+    overlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.2)'
     },
-    header: {
-        backgroundColor: colors.surface
+
+    menuContainer: {
+        position: 'absolute',
+        top: 90,
+        right: 15,
+        backgroundColor: 'white',
+        borderRadius: 12,
+        width: 180,
+        paddingVertical: 10,
+        elevation: 10
     },
-    headerTitle: {
-        alignItems: 'center',
-        justifyContent: 'center'
+
+    menuItem: {
+        paddingVertical: 12,
+        paddingHorizontal: 18
     },
-    headerOverline: {
-        color: colors.textGray,
-        fontSize: 12,
+
+    menuText: {
+        fontSize: 16,
         fontWeight: '600'
     },
-    headerName: {
-        color: colors.textDark,
-        fontSize: 16,
-        fontWeight: '800'
-    },
+
     tabBar: {
         position: 'absolute',
         height: 72,
@@ -171,31 +299,10 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 8
     },
+
     tabLabel: {
         fontSize: 12,
         fontWeight: '700'
     }
+
 });
-
-const headerOptions = {
-    headerLeft: () => (
-        <Image
-            source={iconeOdonto}
-            style={styles.logo}
-        />
-    ),
-
-    headerTitle: () => (
-        <View style={styles.headerTitle}>
-            <Text style={styles.headerOverline}>Clinica Odonto</Text>
-            <Text style={styles.headerName}>Dr Leopoldo Da Silva</Text>
-        </View>
-    ),
-
-    headerTitleAlign: 'center',
-
-    headerStyle: styles.header,
-    headerShadowVisible: false,
-
-    headerRight: () => null
-};

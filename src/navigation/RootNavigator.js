@@ -13,6 +13,7 @@ import LoginScreen from '../screens/LoginScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import { AppDataProvider } from '../context/AppDataContext';
 import { useAuth } from '../context/AuthContext';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const AuthStack = createNativeStackNavigator();
 const AppStack = createNativeStackNavigator();
@@ -26,7 +27,7 @@ const stackHeaderOptions = {
 
 function AuthNavigator() {
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+    <AuthStack.Navigator screenOptions={{ headerShown: true }}>
       <AuthStack.Screen name="Login" component={LoginScreen} />
     </AuthStack.Navigator>
   );
@@ -36,7 +37,19 @@ function AppNavigator() {
   return (
     <AppDataProvider>
       <AppStack.Navigator screenOptions={{ headerShown: false }}>
-        <AppStack.Screen name="Tabs" component={TabNavigation} />
+        <AppStack.Screen name="Tabs"
+          component={TabNavigation}
+        />
+
+        <AppStack.Screen
+          name="Perfil"
+          component={ProfileScreen}
+          options={{
+            ...stackHeaderOptions,
+            headerShown: true,
+            title: 'Perfil'
+          }}
+        />
         <AppStack.Screen
           name="NewPatient"
           component={NewPatientScreen}
