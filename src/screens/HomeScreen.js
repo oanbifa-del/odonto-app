@@ -18,15 +18,19 @@ import SearchBar from '../components/SearchBar';
 import { useAppData } from '../context/AppDataContext';
 import SyncStatusIndicator from '../components/SyncStatusIndicator';
 
+// Funções auxiliares para normalizar strings e extrair apenas dígitos
 const normalize = value => (value || '').toLowerCase().trim();
 const digitsOnly = value => String(value || '').replace(/\D/g, '');
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const { appointments, patients, getPatientById, getProcedureById, loading, error } = useAppData();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(''); // Estado para o texto da barra de busca
 
+  // ============== 3 PRÓXIMAS CONSULTAS ===============
+  // useMemo recalcula a lista de próximas consultas apenas quando appointments mudar
   const upcoming = useMemo(() => {
+   // Filtra consultas não canceladas, ordena por data/hora, seleciona as 3 primeiras e prepara os dados para exibição
     return [...appointments.filter(item => item.status !== 'cancelled')]
       .sort((a, b) => {
         const dateA = new Date(`${a.date}T${a.time || '00:00'}`);
@@ -35,8 +39,8 @@ export default function HomeScreen() {
       })
       .slice(0, 3)
       .map(item => {
-        const patient = getPatientById(item.patientId);
-        const procedure = getProcedureById(item.procedureId);
+        const patient = getPatientById(item.patientId); // Busca dados do paciente pelo ID
+        const procedure = getProcedureById(item.procedureId); // Busca dados do procedimento
         return {
           id: item.id,
           time: item.time,
@@ -44,8 +48,9 @@ export default function HomeScreen() {
           procedure: procedure?.name || 'Procedimento'
         };
       });
-  }, [appointments, getPatientById, getProcedureById]);
+  }, [appointments, getPatientById, getProcedureById]); // Dependências que disparam o recálculo
 
+  // ============= BUSCA DE PACIENTES ==============
   const searchResults = useMemo(() => {
     if (!query.trim()) return [];
     const normalizedQuery = normalize(query);

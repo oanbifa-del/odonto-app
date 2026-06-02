@@ -218,25 +218,56 @@ export default function FinanceScreen() {
             <Text style={styles.title}>Financeiro</Text>
             <Text style={styles.subtitle}>Acompanhe seus resultados</Text>
           </View>
+        </View>
 
+        <View style={styles.periodControlsRow}>
           <View style={styles.periodControls}>
-            <TouchableOpacity style={styles.periodNav} onPress={() => handleMonthChange(-1)}>
+            <TouchableOpacity
+              style={styles.periodNav}
+              onPress={() => handleMonthChange(-1)}
+            >
               <Ionicons name="chevron-back" size={18} color={colors.textDark} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.periodButton} onPress={() => setMonthModalVisible(true)}>
-              <Ionicons name="calendar-outline" size={18} color={colors.textGray} />
+
+            <TouchableOpacity
+              style={styles.periodButton}
+              onPress={() => setMonthModalVisible(true)}
+            >
+              <Ionicons
+                name="calendar-outline"
+                size={18}
+                color={colors.textGray}
+              />
               <Text style={styles.periodText}>{periodLabel}</Text>
-              <Ionicons name="chevron-down" size={18} color={colors.textMuted} />
+              <Ionicons
+                name="chevron-down"
+                size={18}
+                color={colors.textMuted}
+              />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.periodNav} onPress={() => handleMonthChange(1)}>
-              <Ionicons name="chevron-forward" size={18} color={colors.textDark} />
+
+            <TouchableOpacity
+              style={styles.periodNav}
+              onPress={() => handleMonthChange(1)}
+            >
+              <Ionicons
+                name="chevron-forward"
+                size={18}
+                color={colors.textDark}
+              />
             </TouchableOpacity>
           </View>
-          {monthOffset !== 0 ? (
-            <TouchableOpacity style={styles.resetMonth} onPress={resetMonthOffset}>
-              <Text style={styles.resetMonthText}>Voltar para mês atual</Text>
+
+          {monthOffset !== 0 && (
+            <TouchableOpacity
+              style={styles.resetMonth}
+              onPress={resetMonthOffset}
+            >
+              <Text style={styles.resetMonthText}>
+                Voltar para mês atual
+              </Text>
             </TouchableOpacity>
-          ) : null}
+          )}
         </View>
 
         <View style={styles.summaryCard}>
@@ -454,22 +485,52 @@ function IndicatorItem({ label, value }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   content: { padding: 16, paddingBottom: 120 },
-  titleRow: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' },
-  titleBlock: { flex: 1, paddingRight: 12 },
-  title: { fontSize: 26, fontWeight: '800', color: colors.textDark },
-  subtitle: { marginTop: 4, color: colors.textGray, fontWeight: '600' },
-  periodControls: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  resetMonth: {
-    marginTop: 8,
-    alignSelf: 'flex-start',
+  titleRow: { 
+    marginBottom: 12, 
+    flexDirection: 'row', 
+    alignItems: 'flex-start', 
+    justifyContent: 'space-between' 
+  },
+  titleBlock: { 
+    flex: 1, 
+    paddingRight: 12 
+  },
+  title: { fontSize: 26, 
+    fontWeight: '800', 
+    color: colors.textDark 
+  },
+  subtitle: { 
+    marginTop: 4, 
+    color: colors.textGray, 
+    fontWeight: '600' 
+  },
+  periodControls: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    gap: 8, 
+  },
+  resetMonth: { // VOLTAR PARA O MÊS ATUAL (CARD)
+    marginTop: 10,
+    alignItems: 'center',
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 4,
     borderRadius: 999,
     backgroundColor: colors.surfaceAlt,
     borderWidth: 1,
     borderColor: colors.bordas
   },
-  resetMonthText: { color: colors.textDark, fontWeight: '700' },
+  periodControlsRow: {
+    marginTop: 10,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  resetMonthText: { 
+    backgroundColor: colors.corBotoesLight,
+    color: colors.azul, 
+    fontWeight: '600',
+    fontSize:13, 
+  },
   periodButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -510,7 +571,7 @@ const styles = StyleSheet.create({
   modalItemText: { color: colors.textDark, fontWeight: '700' },
   modalItemTextActive: { color: colors.azul },
   modalAction: {
-    marginTop: 12,
+    marginTop: 8,
     backgroundColor: colors.corBotoes,
     borderRadius: 12,
     paddingVertical: 12,
@@ -529,8 +590,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   periodText: { marginLeft: 8, marginRight: 6, color: colors.textDark, fontWeight: '700' },
+  
+  //CARD AZUL GRANDE DO SUMÁRIO
   summaryCard: {
-    marginTop: 16,
+    marginTop: 10,
     backgroundColor: colors.azul,
     borderRadius: 16,
     padding: 16,
