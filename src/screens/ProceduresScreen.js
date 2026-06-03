@@ -35,7 +35,7 @@ export default function ProceduresScreen() {
   const handleDeleteProcedure = procedure => {
     showConfirmation(
       'Remover procedimento',
-      `Deseja remover "${procedure.name}"?`,
+      `Deseja remover "${procedure.name}"?\n\nAs consultas vinculadas a este procedimento também serão removidas.`,
       async () => {
         try {
           await removeProcedure(procedure.id);

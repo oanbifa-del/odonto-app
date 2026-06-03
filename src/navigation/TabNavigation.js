@@ -13,7 +13,7 @@ import FinanceScreen from '../screens/FinanceScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../styles/colors';
-
+import { useAuth } from '../context/AuthContext';
 import {
     View,
     Text,
@@ -29,10 +29,12 @@ import iconeOdonto from '../../assets/images/iconeOdonto.png';
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
-    
+
     const navigationRef = useNavigation();
 
     const [menuVisible, setMenuVisible] = React.useState(false);
+
+    const { signOutUser } = useAuth();
 
     return (
 
@@ -81,6 +83,10 @@ export default function TabNavigation() {
 
                         <TouchableOpacity
                             style={styles.menuItem}
+                            onPress={async () => {
+                                setMenuVisible(false);
+                                await signOutUser();
+                            }}
                         >
 
                             <Text style={styles.menuText}>
