@@ -316,9 +316,6 @@ export default function NewAppointmentScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>{existingAppointment ? 'Editar consulta' : 'Nova consulta'}</Text>
-        <Text style={styles.subtitle}>
-          {existingAppointment ? 'Atualize as informações do agendamento.' : 'Agende uma nova consulta na sua agenda.'}
-        </Text>
 
         <View style={styles.card}>
           <SelectField
@@ -572,33 +569,35 @@ function SelectionModal({ visible, title, items, onClose, onSelect, placeholder 
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 16, paddingBottom: 24 },
-  title: { fontSize: 26, fontWeight: '800', color: colors.textDark },
-  subtitle: { marginTop: 4, marginBottom: 16, color: colors.textGray, fontWeight: '600' },
+  content: { paddingHorizontal: 16, paddingTop: 4, paddingBottom: 12 },
+  title: { fontSize: 28, fontWeight: '800', color: colors.textDark, marginLeft: 6, marginBottom: 6 },
+  
   card: {
     backgroundColor: colors.surface,
     borderRadius: 16,
     borderWidth: 1,
     borderColor: colors.bordas,
-    padding: 16,
-    marginBottom: 16
+    paddingHorizontal: 16, 
+    paddingVertical: 6,
+    paddingBottom: 0.2,
+    marginBottom: 8
   },
   pickerOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.35)',
     justifyContent: 'center',
-    padding: 24
+    padding: 20
   },
   pickerCard: {
     backgroundColor: colors.surface,
     borderRadius: 16,
-    padding: 16
+    padding: 14
   },
   pickerTitle: {
     fontSize: 16,
     fontWeight: '700',
     color: colors.textDark,
-    marginBottom: 12
+    marginBottom: 10
   },
   pickerActions: {
     flexDirection: 'row',

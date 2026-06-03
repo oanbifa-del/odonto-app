@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
   inputMultiline: {
-    height: 96,
+    height: 72,
     textAlignVertical: 'top'
   }
 });

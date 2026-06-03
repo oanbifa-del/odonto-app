@@ -97,6 +97,8 @@ export function AuthProvider({ children }) {
 
       const data = await response.json();
       
+      console.log('Resposta Firebase:', data);
+
       if (!response.ok) {
         throw new Error(mapAuthError(data.error?.message || 'Erro ao criar conta'));
       }

@@ -30,8 +30,19 @@ export default function HomeScreen() {
   // ============== 3 PRÓXIMAS CONSULTAS ===============
   // useMemo recalcula a lista de próximas consultas apenas quando appointments mudar
   const upcoming = useMemo(() => {
-   // Filtra consultas não canceladas, ordena por data/hora, seleciona as 3 primeiras e prepara os dados para exibição
-    return [...appointments.filter(item => item.status !== 'cancelled')]
+    // Filtra consultas não canceladas, ordena por data/hora, seleciona as 3 primeiras e prepara os dados para exibição
+    const now = new Date();
+
+    return [...appointments]
+      .filter(item => {
+        if (item.status === 'cancelled') return false;
+
+        const appointmentDate = new Date(
+          `${item.date}T${item.time || '00:00'}`
+        );
+
+        return appointmentDate >= now;
+      })
       .sort((a, b) => {
         const dateA = new Date(`${a.date}T${a.time || '00:00'}`);
         const dateB = new Date(`${b.date}T${b.time || '00:00'}`);
@@ -41,8 +52,13 @@ export default function HomeScreen() {
       .map(item => {
         const patient = getPatientById(item.patientId); // Busca dados do paciente pelo ID
         const procedure = getProcedureById(item.procedureId); // Busca dados do procedimento
+
         return {
           id: item.id,
+          date: new Date(item.date).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit'
+          }),
           time: item.time,
           name: patient?.fullName || 'Paciente',
           procedure: procedure?.name || 'Procedimento'
@@ -144,7 +160,10 @@ export default function HomeScreen() {
             upcoming.map(a => (
               <View key={a.id} style={styles.appRow}>
                 <View style={styles.appLeft}>
-                  <Text style={styles.appTime}>{a.time}</Text>
+                  <View>
+                    <Text style={styles.appDate}>{a.date}</Text>
+                    <Text style={styles.appTime}>{a.time}</Text>
+                  </View>
                   <View>
                     <Text style={styles.appName}>{a.name}</Text>
                     <Text style={styles.appSub}>{a.procedure}</Text>
@@ -249,6 +268,12 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.borderLight
   },
   appLeft: { flexDirection: 'row', alignItems: 'center' },
+  // DATA DAS CONSULTAS NA HOME
+  appDate: {
+    fontSize: 14,
+    color: colors.textMuted,
+    fontWeight: '500'
+  },
   appTime: { color: colors.azul, width: 64, fontWeight: '700' },
   appName: { color: colors.textDark, fontWeight: '700' },
   appSub: { color: colors.textGray, marginTop: 2 },

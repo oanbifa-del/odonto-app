@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.bordas
   },
-  periodControlsRow: {
+  periodControlsRow: {  // Seleção de mês
     marginTop: 10,
     flexDirection: 'column',
     alignItems: 'center',
