@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import colors from '../styles/colors';
+import { useKeyboardAwareFocus } from './KeyboardAwareScrollView';
 
 const maskPhone = value => {
   const digits = value.replace(/\D/g, '');
@@ -28,9 +29,6 @@ export default function FormInput({
   inputMode,
   returnKeyType,
   onFocus,
-  onPressIn,
-  showSoftInputOnFocus,
-  caretHidden,
   multiline = false,
   maxLength,
   secureTextEntry,
@@ -39,6 +37,8 @@ export default function FormInput({
   editable = true,
   mask
 }) {
+  const scrollToFocusedInput = useKeyboardAwareFocus();
+
   const handleChangeText = text => {
     let formatted = text;
     if (mask === 'phone') {
@@ -47,6 +47,11 @@ export default function FormInput({
       formatted = maskCPF(text);
     }
     onChangeText(formatted);
+  };
+
+  const handleFocus = event => {
+    onFocus?.(event);
+    setTimeout(scrollToFocusedInput, 120);
   };
 
   return (
@@ -61,10 +66,7 @@ export default function FormInput({
         keyboardType={keyboardType}
         inputMode={inputMode}
         returnKeyType={returnKeyType}
-        onFocus={onFocus}
-        onPressIn={onPressIn}
-        showSoftInputOnFocus={showSoftInputOnFocus}
-        caretHidden={caretHidden}
+        onFocus={handleFocus}
         multiline={multiline}
         maxLength={maxLength || (mask === 'phone' ? 14 : mask === 'cpf' ? 14 : undefined)}
         secureTextEntry={secureTextEntry}

@@ -360,7 +360,7 @@ export default function FinanceScreen() {
 
         <View style={styles.sectionRow}>
           <Text style={styles.sectionTitle}>Últimos procedimentos</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Agenda')}>
             <Text style={styles.sectionLink}>Ver todos</Text>
           </TouchableOpacity>
         </View>
@@ -509,7 +509,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     gap: 8, 
   },
-  resetMonth: { // VOLTAR PARA O MÊS ATUAL (CARD)
+  resetMonth: {
     marginTop: 10,
     alignItems: 'center',
     paddingHorizontal: 10,
@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.bordas
   },
-  periodControlsRow: {  // Seleção de mês
+  periodControlsRow: {
     marginTop: 10,
     flexDirection: 'column',
     alignItems: 'center',
@@ -591,7 +591,6 @@ const styles = StyleSheet.create({
   },
   periodText: { marginLeft: 8, marginRight: 6, color: colors.textDark, fontWeight: '700' },
   
-  //CARD AZUL GRANDE DO SUMÁRIO
   summaryCard: {
     marginTop: 10,
     backgroundColor: colors.azul,

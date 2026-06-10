@@ -3,7 +3,6 @@ import React, { useMemo, useState } from 'react';
 import {
   Alert,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,6 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../styles/colors';
 import FormInput from '../components/FormInput';
 import ActionButton from '../components/ActionButton';
+import KeyboardAwareScrollView from '../components/KeyboardAwareScrollView';
 import { useAuth } from '../context/AuthContext';
 
 export default function LoginScreen() {
@@ -64,7 +64,7 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView contentContainerStyle={styles.content}>
         <View style={styles.hero}>
           <View style={styles.logoCircle}>
             <Ionicons name="medkit" size={26} color={colors.white} />
@@ -149,7 +149,7 @@ export default function LoginScreen() {
             {isRegister ? 'Já tenho conta' : 'Não tenho conta'}
           </Text>
         </TouchableOpacity>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }

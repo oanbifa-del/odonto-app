@@ -6,8 +6,6 @@ import * as SecureStore from 'expo-secure-store';
 
 const AuthContext = createContext(null);
 
-// 🔐 Bypass temporário do login para desenvolvimento.
-// Defina como false quando o Firebase Authentication estiver configurado.
 const BYPASS_AUTH = false;
 
 // Traduz erros comuns do Firebase para mensagens mais claras.
@@ -96,8 +94,6 @@ export function AuthProvider({ children }) {
       );
 
       const data = await response.json();
-      
-      console.log('Resposta Firebase:', data);
 
       if (!response.ok) {
         throw new Error(mapAuthError(data.error?.message || 'Erro ao criar conta'));

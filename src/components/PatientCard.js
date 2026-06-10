@@ -31,12 +31,26 @@ export default function PatientCard({
 			</View>
 			<View style={styles.right}>
 				{onEdit ? (
-					<TouchableOpacity style={styles.iconButton} onPress={onEdit}>
+					<TouchableOpacity
+						style={styles.iconButton}
+						onPress={event => {
+							event.stopPropagation?.();
+							onEdit();
+						}}
+						activeOpacity={0.8}
+					>
 						<Ionicons name="create-outline" size={18} color={colors.textDark} />
 					</TouchableOpacity>
 				) : null}
 				{onDelete ? (
-					<TouchableOpacity style={[styles.iconButton, styles.iconDanger]} onPress={onDelete}>
+					<TouchableOpacity
+						style={[styles.iconButton, styles.iconDanger]}
+						onPress={event => {
+							event.stopPropagation?.();
+							onDelete();
+						}}
+						activeOpacity={0.8}
+					>
 						<Ionicons name="trash-outline" size={18} color="#DC2626" />
 					</TouchableOpacity>
 				) : null}

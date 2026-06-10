@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../styles/colors';
 import { useAuth } from '../context/AuthContext';
 import {
+    Alert,
     View,
     Text,
     Image,
@@ -39,8 +40,6 @@ export default function TabNavigation() {
     return (
 
         <>
-            {/* ===== MENU HAMBURGUER ===== */}
-
             <Modal
                 transparent={true}
                 visible={menuVisible}
@@ -52,7 +51,10 @@ export default function TabNavigation() {
                     onPress={() => setMenuVisible(false)}
                 >
 
-                    <View style={styles.menuContainer}>
+                    <Pressable
+                        style={styles.menuContainer}
+                        onPress={event => event.stopPropagation?.()}
+                    >
 
                         <TouchableOpacity
                             style={styles.menuItem}
@@ -73,6 +75,10 @@ export default function TabNavigation() {
 
                         <TouchableOpacity
                             style={styles.menuItem}
+                            onPress={() => {
+                                setMenuVisible(false);
+                                Alert.alert('Configurações', 'As configurações serão adicionadas em uma próxima versão.');
+                            }}
                         >
 
                             <Text style={styles.menuText}>
@@ -95,7 +101,7 @@ export default function TabNavigation() {
 
                         </TouchableOpacity>
 
-                    </View>
+                    </Pressable>
 
                 </Pressable>
 
@@ -104,8 +110,6 @@ export default function TabNavigation() {
             <Tab.Navigator
 
                 screenOptions={({ navigation }) => ({
-
-                    // ===== HEADER =====
 
                     headerShown: true,
 
@@ -159,8 +163,6 @@ export default function TabNavigation() {
                         />
                     ),
 
-                    // ===== BOTÃO MENU =====
-
                     headerRight: () => (
 
                         <TouchableOpacity
@@ -176,8 +178,6 @@ export default function TabNavigation() {
 
                         </TouchableOpacity>
                     ),
-
-                    // ===== TAB BAR =====
 
                     tabBarActiveTintColor: colors.azul,
 
@@ -257,8 +257,6 @@ export default function TabNavigation() {
         </>
     );
 }
-
-// ===== ESTILOS =====
 
 const styles = StyleSheet.create({
 

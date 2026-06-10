@@ -1,10 +1,11 @@
 // Tela de cadastro/edição de procedimento.
 import React, { useMemo, useState } from 'react';
-import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import colors from '../styles/colors';
 import FormInput from '../components/FormInput';
 import ActionButton from '../components/ActionButton';
+import KeyboardAwareScrollView from '../components/KeyboardAwareScrollView';
 import { useAppData } from '../context/AppDataContext';
 
 // Converte o valor digitado para número.
@@ -90,7 +91,7 @@ export default function NewProcedureScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{existingProcedure ? 'Editar procedimento' : 'Novo procedimento'}</Text>
         <Text style={styles.subtitle}>
           {existingProcedure ? 'Atualize os dados do procedimento.' : 'Cadastre novos procedimentos para sua clínica.'}
@@ -126,7 +127,7 @@ export default function NewProcedureScreen() {
           title={existingProcedure ? 'Salvar alterações' : 'Salvar procedimento'}
           onPress={handleSave}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }

@@ -2,10 +2,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   Alert,
+  KeyboardAvoidingView,
   Modal,
   Platform,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -19,6 +19,8 @@ import FormInput from '../components/FormInput';
 import SelectField from '../components/SelectField';
 import ActionButton from '../components/ActionButton';
 import SearchBar from '../components/SearchBar';
+import KeyboardAwareScrollView from '../components/KeyboardAwareScrollView';
+import PickerField from '../components/PickerField';
 import { useAppData } from '../context/AppDataContext';
 
 // Converte o valor digitado para número.
@@ -41,23 +43,6 @@ const maskCurrency = value => {
   if (!digits) return '';
   const number = Number(digits) / 100;
   return formatCurrency(number);
-};
-
-// Máscara de data no formato DD-MM-AAAA.
-const maskDate = value => {
-  const digits = value.replace(/\D/g, '').slice(0, 8);
-  const parts = [];
-  if (digits.length >= 2) parts.push(digits.slice(0, 2));
-  if (digits.length >= 4) parts.push(digits.slice(2, 4));
-  if (digits.length > 4) parts.push(digits.slice(4, 8));
-  return parts.join('-');
-};
-
-// Máscara de horário no formato HH:MM.
-const maskTime = value => {
-  const digits = value.replace(/\D/g, '').slice(0, 4);
-  if (digits.length <= 2) return digits;
-  return `${digits.slice(0, 2)}:${digits.slice(2, 4)}`;
 };
 
 const formatDateFromDate = date => {
@@ -314,7 +299,7 @@ export default function NewAppointmentScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{existingAppointment ? 'Editar consulta' : 'Nova consulta'}</Text>
 
         <View style={styles.card}>
@@ -330,37 +315,18 @@ export default function NewAppointmentScreen() {
             placeholder="Selecionar procedimento"
             onPress={() => setProcedureModalVisible(true)}
           />
-          <FormInput
+          <PickerField
             label="Data"
             value={date}
-            onChangeText={value => setDate(maskDate(value))}
             placeholder="DD-MM-AAAA"
-            keyboardType="number-pad"
-            inputMode="numeric"
-            returnKeyType="done"
-            autoCapitalize="none"
-            autoCorrect={false}
-            maxLength={10}
-            showSoftInputOnFocus={false}
-            caretHidden
-            onFocus={openDatePicker}
-            onPressIn={openDatePicker}
+            onPress={openDatePicker}
           />
-          <FormInput
+          <PickerField
             label="Horário"
             value={time}
-            onChangeText={value => setTime(maskTime(value))}
             placeholder="HH:MM"
-            keyboardType="number-pad"
-            inputMode="numeric"
-            returnKeyType="done"
-            autoCapitalize="none"
-            autoCorrect={false}
-            maxLength={5}
-            showSoftInputOnFocus={false}
-            caretHidden
-            onFocus={openTimePicker}
-            onPressIn={openTimePicker}
+            icon="time-outline"
+            onPress={openTimePicker}
           />
           <FormInput
             label="Valor"
@@ -389,7 +355,7 @@ export default function NewAppointmentScreen() {
           title={existingAppointment ? 'Salvar alterações' : 'Salvar consulta'}
           onPress={handleSave}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
 
       {Platform.OS === 'android' && datePickerVisible && (
         <DateTimePicker
@@ -527,7 +493,10 @@ function SelectionModal({ visible, title, items, onClose, onSelect, placeholder 
 
   return (
     <Modal visible={visible} animationType="slide" transparent>
-      <View style={styles.modalOverlay}>
+      <KeyboardAvoidingView
+        style={styles.modalOverlay}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
         <View style={styles.modalCard}>
           <View style={styles.modalHeader}>
             <Text style={styles.modalTitle}>{title}</Text>
@@ -562,7 +531,7 @@ function SelectionModal({ visible, title, items, onClose, onSelect, placeholder 
             ))
           )}
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }

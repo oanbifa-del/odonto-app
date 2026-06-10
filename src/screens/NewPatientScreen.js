@@ -5,7 +5,6 @@ import {
   Modal,
   Platform,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -16,17 +15,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import colors from '../styles/colors';
 import FormInput from '../components/FormInput';
 import ActionButton from '../components/ActionButton';
+import KeyboardAwareScrollView from '../components/KeyboardAwareScrollView';
+import PickerField from '../components/PickerField';
 import { useAppData } from '../context/AppDataContext';
-
-// Máscara de data no formato DD-MM-AAAA.
-const maskDate = value => {
-  const digits = value.replace(/\D/g, '').slice(0, 8);
-  const parts = [];
-  if (digits.length >= 2) parts.push(digits.slice(0, 2));
-  if (digits.length >= 4) parts.push(digits.slice(2, 4));
-  if (digits.length > 4) parts.push(digits.slice(4, 8));
-  return parts.join('-');
-};
 
 const formatDateFromDate = date => {
   const day = String(date.getDate()).padStart(2, '0');
@@ -157,7 +148,7 @@ export default function NewPatientScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{existingPatient ? 'Editar paciente' : 'Novo paciente'}</Text>
         <Text style={styles.subtitle}>
           {existingPatient ? 'Atualize os dados do paciente.' : 'Preencha os dados para cadastrar o paciente.'}
@@ -166,21 +157,11 @@ export default function NewPatientScreen() {
         <View style={styles.card}>
           <FormInput label="Nome" value={firstName} onChangeText={setFirstName} placeholder="Ex: João" />
           <FormInput label="Sobrenome" value={lastName} onChangeText={setLastName} placeholder="Ex: Silva" />
-          <FormInput
+          <PickerField
             label="Data de nascimento"
             value={birthDate}
-            onChangeText={value => setBirthDate(maskDate(value))}
             placeholder="DD-MM-AAAA"
-            keyboardType="number-pad"
-            inputMode="numeric"
-            returnKeyType="done"
-            autoCapitalize="none"
-            autoCorrect={false}
-            maxLength={10}
-            showSoftInputOnFocus={false}
-            caretHidden
-            onFocus={openBirthDatePicker}
-            onPressIn={openBirthDatePicker}
+            onPress={openBirthDatePicker}
           />
           <FormInput
             label="Instagram"
@@ -214,7 +195,7 @@ export default function NewPatientScreen() {
         </View>
 
         <ActionButton title={existingPatient ? 'Salvar alterações' : 'Salvar paciente'} onPress={handleSave} />
-      </ScrollView>
+      </KeyboardAwareScrollView>
 
       {Platform.OS === 'android' && birthDatePickerVisible && (
         <DateTimePicker
