@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  Image,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -14,7 +15,7 @@ import FormInput from '../components/FormInput';
 import ActionButton from '../components/ActionButton';
 import KeyboardAwareScrollView from '../components/KeyboardAwareScrollView';
 import { useAuth } from '../context/AuthContext';
-
+import iconeOdonto from '../../assets/images/iconeOdonto.png';
 export default function LoginScreen() {
   const { signIn, signUp } = useAuth();
   const [isRegister, setIsRegister] = useState(false);
@@ -67,7 +68,11 @@ export default function LoginScreen() {
       <KeyboardAwareScrollView contentContainerStyle={styles.content}>
         <View style={styles.hero}>
           <View style={styles.logoCircle}>
-            <Ionicons name="medkit" size={26} color={colors.white} />
+            <Image
+              source={iconeOdonto}
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
           </View>
           <Text style={styles.brand}>Odonto App</Text>
           <Text style={styles.tagline}>
@@ -167,6 +172,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 12
   },
+
+  logoImage: {
+    width: 38,
+    height: 38
+  },
+
   brand: { fontSize: 24, fontWeight: '800', color: colors.textDark },
   tagline: {
     marginTop: 6,

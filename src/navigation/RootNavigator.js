@@ -27,8 +27,24 @@ const stackHeaderOptions = {
 
 function AuthNavigator() {
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: true }}>
-      <AuthStack.Screen name="Login" component={LoginScreen} />
+    <AuthStack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: '#2563FF'
+        },
+        headerTintColor: '#FFFFFF',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+      
+        }
+      }}
+    >
+      <AuthStack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ title: 'Login', headerTitleAlign: 'center'}}
+      />
     </AuthStack.Navigator>
   );
 }
