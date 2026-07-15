@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "odonto-app",
-    "slug": "odonto-app",
+    "name": "Odonto App",
     "version": "1.0.0",
+    "slug": "odonto-app",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/iconeOdontoAzul.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/iconeOdontoAzul.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
