@@ -182,7 +182,6 @@ export default function AppointmentDetailScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Detalhes do agendamento</Text>
-        <Text style={styles.subtitle}>Confira todas as informações da consulta.</Text>
 
         <View style={styles.actionsRow}>
           <TouchableOpacity
@@ -445,7 +444,7 @@ function InfoRow({ label, value, isLast }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   content: { padding: 16, paddingBottom: 24 },
-  title: { fontSize: 26, fontWeight: '800', color: colors.textDark },
+  title: { fontSize: 26, fontWeight: '800', paddingBottom: 12, color: colors.textDark },
   subtitle: { marginTop: 4, marginBottom: 16, color: colors.textGray, fontWeight: '600' },
   actionsRow: {
     flexDirection: 'row',

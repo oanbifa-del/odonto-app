@@ -93,10 +93,6 @@ export default function NewProcedureScreen() {
     <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{existingProcedure ? 'Editar procedimento' : 'Novo procedimento'}</Text>
-        <Text style={styles.subtitle}>
-          {existingProcedure ? 'Atualize os dados do procedimento.' : 'Cadastre novos procedimentos para sua clínica.'}
-        </Text>
-
         <View style={styles.card}>
           <FormInput label="Nome" value={name} onChangeText={setName} placeholder="Ex: Clareamento dental" />
           <FormInput
@@ -135,7 +131,7 @@ export default function NewProcedureScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   content: { padding: 16, paddingBottom: 24 },
-  title: { fontSize: 26, fontWeight: '800', color: colors.textDark },
+  title: { fontSize: 26, fontWeight: '800', color: colors.textDark, paddingBottom: 8 },
   subtitle: { marginTop: 4, marginBottom: 16, color: colors.textGray, fontWeight: '600' },
   card: {
     backgroundColor: colors.surface,

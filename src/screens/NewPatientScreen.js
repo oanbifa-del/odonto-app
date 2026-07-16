@@ -150,10 +150,6 @@ export default function NewPatientScreen() {
     <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{existingPatient ? 'Editar paciente' : 'Novo paciente'}</Text>
-        <Text style={styles.subtitle}>
-          {existingPatient ? 'Atualize os dados do paciente.' : 'Preencha os dados para cadastrar o paciente.'}
-        </Text>
-
         <View style={styles.card}>
           <FormInput label="Nome" value={firstName} onChangeText={setFirstName} placeholder="Ex: João" />
           <FormInput label="Sobrenome" value={lastName} onChangeText={setLastName} placeholder="Ex: Silva" />
@@ -238,16 +234,18 @@ export default function NewPatientScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 16, paddingBottom: 24 },
-  title: { fontSize: 26, fontWeight: '800', color: colors.textDark },
-  subtitle: { marginTop: 4, marginBottom: 16, color: colors.textGray, fontWeight: '600' },
+  content: { padding: 16, paddingTop: 4, paddingBottom: 24 },
+  title: { fontSize: 28, fontWeight: '800', color: colors.textDark, marginLeft: 6, marginBottom: 6 },
+  subtitle: { marginTop: 6, marginBottom: 16, color: colors.textGray, fontWeight: '600' },
   card: {
     backgroundColor: colors.surface,
     borderRadius: 16,
     borderWidth: 1,
     borderColor: colors.bordas,
-    padding: 16,
-    marginBottom: 16
+    paddingHorizontal: 16, 
+    paddingVertical: 6, 
+    paddingBottom: 0.2,
+    marginBottom: 8
   },
   pickerOverlay: {
     flex: 1,
@@ -258,13 +256,13 @@ const styles = StyleSheet.create({
   pickerCard: {
     backgroundColor: colors.surface,
     borderRadius: 16,
-    padding: 16
+    padding: 14
   },
   pickerTitle: {
     fontSize: 16,
     fontWeight: '700',
     color: colors.textDark,
-    marginBottom: 12
+    marginBottom: 10
   },
   pickerActions: {
     flexDirection: 'row',

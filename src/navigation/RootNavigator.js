@@ -81,7 +81,14 @@ function AppNavigator() {
         <AppStack.Screen
           name="PatientDetail"
           component={PatientDetailScreen}
-          options={{ ...stackHeaderOptions, headerShown: true, title: 'Paciente' }}
+          options={{
+            ...stackHeaderOptions, headerShown: true, title: 'Voltar',
+            headerStyle: { backgroundColor: '#2563FF' },
+            headerTitleStyle: {
+              color: '#FFFFFF',
+              fontWeight: '700',
+            }
+          }}        
         />
         <AppStack.Screen
           name="NewProcedure"
@@ -122,7 +129,14 @@ function AppNavigator() {
         <AppStack.Screen
           name="AppointmentDetail"
           component={AppointmentDetailScreen}
-          options={{ ...stackHeaderOptions, headerShown: true, title: 'Agendamento' }}
+          options={{
+            ...stackHeaderOptions, headerShown: true, title: 'Voltar',
+            headerStyle: { backgroundColor: '#2563FF' },
+            headerTitleStyle: {
+              color: '#FFFFFF',
+              fontWeight: '700',
+            }
+          }}        
         />
       </AppStack.Navigator>
     </AppDataProvider>
