@@ -41,8 +41,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f8babfaf-04be-450e-8988-399c841257f2"
+        "projectId": "bd571d06-461b-4612-a365-9a30256a88f1"
       }
-    }
+    },
+    "owner": "fabianodev"
   }
 }

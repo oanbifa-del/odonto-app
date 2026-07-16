@@ -82,7 +82,6 @@ export default function ProceduresScreen() {
       <View style={styles.headerRow}>
         <View>
           <Text style={styles.title}>Procedimentos</Text>
-          <Text style={styles.subtitle}>Gerencie os procedimentos da clínica.</Text>
         </View>
         <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('NewProcedure')}>
           <Text style={styles.addText}>+ Novo</Text>

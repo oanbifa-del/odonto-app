@@ -36,14 +36,14 @@ function AuthNavigator() {
         headerTintColor: '#FFFFFF',
         headerTitleStyle: {
           fontWeight: 'bold',
-      
+
         }
       }}
     >
       <AuthStack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ title: 'Login', headerTitleAlign: 'center'}}
+        options={{ title: 'Login', headerTitleAlign: 'center' }}
       />
     </AuthStack.Navigator>
   );
@@ -69,7 +69,14 @@ function AppNavigator() {
         <AppStack.Screen
           name="NewPatient"
           component={NewPatientScreen}
-          options={{ ...stackHeaderOptions, headerShown: true, title: 'Novo paciente' }}
+          options={{
+            ...stackHeaderOptions, headerShown: true, title: 'Voltar',
+            headerStyle: { backgroundColor: '#2563FF' },
+            headerTitleStyle: {
+              color: '#FFFFFF',
+              fontWeight: '700',
+            }
+          }}        
         />
         <AppStack.Screen
           name="PatientDetail"
@@ -79,17 +86,38 @@ function AppNavigator() {
         <AppStack.Screen
           name="NewProcedure"
           component={NewProcedureScreen}
-          options={{ ...stackHeaderOptions, headerShown: true, title: 'Novo procedimento' }}
+          options={{
+            ...stackHeaderOptions, headerShown: true, title: 'Voltar',
+            headerStyle: { backgroundColor: '#2563FF' },
+            headerTitleStyle: {
+              color: '#FFFFFF',
+              fontWeight: '700',
+            }
+          }}        
         />
         <AppStack.Screen
           name="Procedures"
           component={ProceduresScreen}
-          options={{ ...stackHeaderOptions, headerShown: true, title: 'Procedimentos' }}
+          options={{
+            ...stackHeaderOptions, headerShown: true, title: 'Voltar',
+            headerStyle: { backgroundColor: '#2563FF' },
+            headerTitleStyle: {
+              color: '#FFFFFF',
+              fontWeight: '700',
+            }
+          }}
         />
         <AppStack.Screen
           name="NewAppointment"
           component={NewAppointmentScreen}
-          options={{ ...stackHeaderOptions, headerShown: true, title: 'Nova consulta' }}
+          options={{
+            ...stackHeaderOptions, headerShown: true, title: 'Voltar',
+            headerStyle: { backgroundColor: '#2563FF' },
+            headerTitleStyle: {
+              color: '#FFFFFF',
+              fontWeight: '700',
+            }
+          }}
         />
         <AppStack.Screen
           name="AppointmentDetail"
