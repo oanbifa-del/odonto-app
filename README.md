@@ -1,3 +1,12 @@
+# Telas Principais
+Fluxo principal de navegação do aplicativo:
+
+![Demonstração do app](assets/demo/demo.gif)
+<img src="assets/demo/principal.jpeg" width="177">
+<img src="assets/demo/pacientes.jpeg" width="177">
+<img src="assets/demo/agenda.jpeg" width="177">
+<img src="assets/demo/financeiro.jpeg" width="177">
+
 # Odonto App
 
 Aplicativo mobile para gestao de clinicas odontologicas, com pacientes, procedimentos, agenda, autenticacao e painel financeiro. O app usa Expo SDK 54, React Native e Firebase via REST API.
